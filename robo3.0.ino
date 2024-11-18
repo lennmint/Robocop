@@ -1,3 +1,5 @@
+#include <Wire.h>
+#include <MechaQMC5883.h>
 #include <Servo.h>
 
 #define botonPin 8
@@ -8,6 +10,8 @@ int servoPins[SERVOS] = {3,5,6,11};
 int ledPins[] = {7,2,4};
 //Con esto controlo los servos
 Servo myservo[SERVOS];
+//Con esto controlo el sensor
+MechaQMC5883 compas;
 
 //flancos
 int botonEstado = HIGH;
@@ -18,6 +22,9 @@ int botonContador = 0;
 
 void setup() {
   Serial.begin(9600);
+
+  Wire.begin();
+  compas.init();
   
   //for para conf. los leds como salidas
   for (int i=0; i < 3 ; i++){
